@@ -320,7 +320,7 @@ export default function GeneralSite() {
         <nav className="bc-nav">
           <div className="bc-brand">
             <div className="bc-brand-badge"><Music2 size={19}/></div>
-            <div>Hare Krishna Vaikuntham<small>ISKCON · Gambheeram, Visakhapatnam</small></div>
+            <div>Hare Krishna Vaikuntham<small>Srila Prabhupada's ISKCON · Gambheeram</small></div>
           </div>
           <button className="bc-navcta" onClick={()=>document.getElementById("bc-ticket")?.scrollIntoView({behavior:"smooth"})} disabled={soldOut}>
             {soldOut?"Sold out":"Register now"}
@@ -344,7 +344,7 @@ export default function GeneralSite() {
             <span className="bc-chip"><CalendarDays size={15}/>Sat, 27 June · 6:00 PM</span>
             <span className="bc-chip"><MapPin size={15}/>Vizag Conventions</span>
             <span className="bc-chip"><UtensilsCrossed size={15}/>Dinner prasadam</span>
-            <span className="bc-chip"><Users size={15}/>Open to all</span>
+            
           </div>
           <div className="bc-herorow">
             <button className="bc-herocta" onClick={openModal} disabled={soldOut}>
@@ -352,12 +352,7 @@ export default function GeneralSite() {
             </button>
             <div className="bc-from">Only <b>₹{price}</b></div>
           </div>
-          {soldCount>0&&(
-            <div className="bc-cap">
-              <div className="bc-cap-label"><span>{soldCount} registered</span><span>{remaining>0?`${remaining} left`:"Sold out"}</span></div>
-              <div className="bc-cap-bar"><div className="bc-cap-fill" style={{width:capPct+"%"}}/></div>
-            </div>
-          )}
+
         </header>
 
         <section className="bc-sec">
@@ -372,16 +367,16 @@ export default function GeneralSite() {
           <div className="bc-ticket-wrap">
             <div className="bc-stub">
               <div className="bc-stub-glow"/>
-              <span className="bc-stub-tag"><Ticket size={13}/>Open to all · No ID required</span>
+              <span className="bc-stub-tag"><Ticket size={13}/>General Pass</span>
               <div className="bc-stub-name">General Pass</div>
-              <div className="bc-stub-desc">Open for everyone. Register, pay, and your QR pass arrives on WhatsApp before the event.</div>
+              <div className="bc-stub-desc">Register, pay, and your QR pass arrives on WhatsApp before the event.</div>
               <div className="bc-tear"/>
               <div className="bc-price"><span className="cur">₹</span><span className="amt">{price}</span><span className="per">/ person</span></div>
               <ul className="bc-stub-feat">
                 <li><Check size={16}/>Full kirtan night with KirtanX Music Band</li>
                 <li><Check size={16}/>Dinner prasadam included</li>
                 <li><Check size={16}/>QR pass sent on WhatsApp before the event</li>
-                <li><Check size={16}/>Open to all — no ID required</li>
+                
               </ul>
               {soldOut
                 ?<div className="bc-soldout">🎟️ All {capacity} passes are sold out. Thank you!</div>
@@ -391,7 +386,7 @@ export default function GeneralSite() {
         </section>
 
         <footer className="bc-foot">
-          <div><span className="bc-foot org">Hare Krishna Vaikuntham Cultural Centre</span> · HKM &amp; ISKCON Visakhapatnam</div>
+          <div><span className="bc-foot org">Srila Prabhupada's ISKCON Gambheeram</span> · Visakhapatnam</div>
           <div>Bhajan Clubbing · 27 June</div>
         </footer>
       </div>
