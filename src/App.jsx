@@ -317,7 +317,7 @@ export default function GeneralSite() {
         <nav className="bc-nav">
           <div className="bc-brand">
             <div className="bc-brand-badge"><Music2 size={19}/></div>
-            <div>Hare Krishna Vaikuntham<small>Srila Prabhupada's ISKCON · Gambheeram</small></div>
+            <div>Hare Krishna Vaikuntham<small>ISKCON · Gambheeram, Visakhapatnam</small></div>
           </div>
           <button className="bc-navcta" onClick={()=>document.getElementById("bc-ticket")?.scrollIntoView({behavior:"smooth"})} disabled={soldOut}>
             {soldOut?"Sold out":"Register now"}
