@@ -60,10 +60,7 @@ const STYLES = `
 .bc-herocta:disabled{opacity:.5;cursor:not-allowed;}
 .bc-from{font-size:13px;color:var(--muted);}
 .bc-from b{display:block;font-family:'Bricolage Grotesque';font-size:24px;color:#fff;font-weight:700;}
-.bc-cap{width:100%;max-width:420px;margin:18px auto 0;}
-.bc-cap-label{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:7px;}
-.bc-cap-bar{height:6px;border-radius:999px;background:var(--surface2);overflow:hidden;}
-.bc-cap-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--amber));transition:width .6s;}
+
 .bc-sec{padding:42px 0 4px;}
 .bc-sectitle{font-family:'Bricolage Grotesque';font-weight:700;font-size:clamp(24px,4vw,32px);margin:0 0 16px;}
 .bc-about{color:var(--muted);font-size:16px;line-height:1.75;max-width:760px;}
