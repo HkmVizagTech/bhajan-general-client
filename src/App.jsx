@@ -202,6 +202,7 @@ export default function GeneralSite() {
   const [orderReady,setOrderReady] = useState(null);
   const [prepping,setPrepping] = useState(false);
   const [metaEventId,setMetaEventId] = useState("");
+  const [qty,setQty]               = useState(1);
   const nameRef = useRef(null);
 
   useEffect(() => {
@@ -224,14 +225,15 @@ export default function GeneralSite() {
   const openModal = () => {
     if (soldOut) return;
     setOpen(true); setStep("details");
-    setForm({name:"",phone:"",gender:""});
+    setForm({name:"",phone:""});
+    setQty(1);
     setPayErr(""); setRef(""); setOrderReady(null); setPrepping(false);
     try { const eid=crypto.randomUUID(); setMetaEventId(eid); fbqTrack("Lead",{},{eventID:eid+"_lead"}); } catch {}
   };
   const closeModal = () => setOpen(false);
   const setF = k => e => setForm(s=>({...s,[k]:e.target.value}));
   const setPhone = e => setForm(s=>({...s,phone:e.target.value.replace(/\D/g,"").slice(0,10)}));
-  const valid = () => form.name.trim() && form.phone.length===10 && form.gender;
+  const valid = () => form.name.trim() && form.phone.length===10;
 
   useEffect(() => {
     if (!open) return;
@@ -248,7 +250,7 @@ export default function GeneralSite() {
     try {
       const fd = new FormData();
       fd.append("name",form.name); fd.append("phone",form.phone);
-      fd.append("ticketType","general"); fd.append("gender",form.gender);
+      fd.append("ticketType","general"); fd.append("quantity", qty);
       fd.append("metaEventId",metaEventId);
       const utm=getUtm(); Object.entries(utm).forEach(([k,v])=>{if(v)fd.append(k,v);});
       const res=await fetch(`${API}/api/public/register`,{method:"POST",body:fd});
@@ -297,7 +299,7 @@ export default function GeneralSite() {
         handler:()=>{
           setRef(String(data.registrationId).slice(-6).toUpperCase());
           setStep("success");setPaying(false);
-          fbqTrack("CompleteRegistration",{currency:"INR",value:price},{eventID:metaEventId});
+          fbqTrack("CompleteRegistration",{currency:"INR",value:price*qty},{eventID:metaEventId});
         },
         modal:{ondismiss:()=>setPaying(false)},
       });
@@ -417,16 +419,21 @@ export default function GeneralSite() {
                     <div className="bc-inwrap"><User size={16}/><input ref={nameRef} className="bc-input" placeholder="Your name" value={form.name} onChange={setF("name")}/></div></div>
                   <div className="bc-field"><label>WhatsApp number</label>
                     <div className="bc-inwrap"><Phone size={16}/><input className="bc-input" placeholder="10-digit mobile number" value={form.phone} onChange={setPhone} inputMode="numeric"/></div></div>
-                  <div className="bc-field"><label>Gender</label>
-                    <div style={{display:"flex",gap:8}}>
-                      {["Male","Female"].map(g=>(
-                        <button key={g} type="button" onClick={()=>setForm(f=>({...f,gender:g}))}
-                          style={{flex:1,padding:"11px 6px",borderRadius:10,border:"1px solid",
-                            borderColor:form.gender===g?"var(--gold)":"var(--line)",
-                            background:form.gender===g?"rgba(255,177,46,.15)":"var(--surface)",
-                            color:form.gender===g?"var(--gold2)":"var(--muted)",
-                            fontFamily:"inherit",fontWeight:600,fontSize:13,cursor:"pointer"}}>{g}</button>
-                      ))}
+
+                  <div className="bc-field"><label>Number of passes</label>
+                    <div style={{display:"flex",alignItems:"center",gap:14}}>
+                      <button type="button" disabled={qty<=1}
+                        onClick={()=>setQty(q=>Math.max(1,q-1))}
+                        style={{width:42,height:42,borderRadius:11,border:"1px solid var(--line)",
+                          background:"var(--surface2)",color:"var(--text)",fontSize:20,cursor:"pointer",
+                          display:"grid",placeItems:"center",opacity:qty<=1?.35:1}}>−</button>
+                      <span style={{fontFamily:"'Bricolage Grotesque'",fontSize:28,fontWeight:800,minWidth:40,textAlign:"center"}}>{qty}</span>
+                      <button type="button" disabled={qty>=10}
+                        onClick={()=>setQty(q=>Math.min(10,q+1))}
+                        style={{width:42,height:42,borderRadius:11,border:"1px solid var(--line)",
+                          background:"var(--surface2)",color:"var(--text)",fontSize:20,cursor:"pointer",
+                          display:"grid",placeItems:"center",opacity:qty>=10?.35:1}}>+</button>
+                      <span style={{color:"var(--muted2)",fontSize:13}}>× ₹{price} = <b style={{color:"var(--gold2)"}}>₹{price*qty}</b></span>
                     </div>
                   </div>
                   <button className="bc-btn" disabled={!valid()} onClick={()=>{setStep("payment");prepareOrder();}}>
@@ -437,14 +444,14 @@ export default function GeneralSite() {
               {step==="payment"&&(
                 <>
                   <div className="bc-summary">
-                    <div className="bc-srow"><span>General Pass</span><span className="amt">₹{price}</span></div>
+                    <div className="bc-srow"><span>General Pass × {qty}</span><span className="amt">₹{price * qty}</span></div>
                     <div className="bc-srow"><span>Name</span><span>{form.name}</span></div>
                     <div className="bc-srow"><span>WhatsApp</span><span>{form.phone}</span></div>
-                    <div className="bc-srow tot"><span>Total</span><span className="amt">₹{price}</span></div>
+                    <div className="bc-srow tot"><span>Total</span><span className="amt">₹{price * qty}</span></div>
                   </div>
                   {payErr&&<div className="bc-pay-err">{payErr}</div>}
                   <button className="bc-btn" onClick={pay} disabled={paying}>
-                    {paying?<><Loader2 size={18} style={{animation:"spin 1s linear infinite"}}/>Processing…</>:<>Pay ₹{price} securely <ArrowRight size={17}/></>}
+                    {paying?<><Loader2 size={18} style={{animation:"spin 1s linear infinite"}}/>Processing…</>:<>Pay ₹{price*qty} securely <ArrowRight size={17}/></>}
                   </button>
                   <button className="bc-btn ghost" style={{marginTop:10}} onClick={()=>setStep("details")} disabled={paying}><ArrowLeft size={16}/>Back</button>
                   <div className="bc-secure"><ShieldCheck size={13}/>Payments secured by Razorpay</div>
