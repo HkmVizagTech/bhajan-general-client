@@ -201,6 +201,8 @@ export default function GeneralSite() {
   const [capacity,setCapacity] = useState(300);
   const [orderReady,setOrderReady] = useState(null);
   const [prepping,setPrepping] = useState(false);
+  const orderReadyRef = React.useRef(null);
+  const preppingRef   = React.useRef(false);
   const [metaEventId,setMetaEventId] = useState("");
   const [qty,setQty]               = useState(1);
   const nameRef = useRef(null);
@@ -245,8 +247,8 @@ export default function GeneralSite() {
   }, [open]);
 
   const prepareOrder = async () => {
-    if (!API||prepping||orderReady) return;
-    setPrepping(true); setPayErr("");
+    if (!API||preppingRef.current||orderReadyRef.current) return;
+    setPrepping(true); preppingRef.current = true; setPayErr("");
     try {
       const fd = new FormData();
       fd.append("name",form.name); fd.append("phone",form.phone);
@@ -255,10 +257,10 @@ export default function GeneralSite() {
       const utm=getUtm(); Object.entries(utm).forEach(([k,v])=>{if(v)fd.append(k,v);});
       const res=await fetch(`${API}/api/public/register`,{method:"POST",body:fd});
       const data=await res.json();
-      if (res.ok) setOrderReady(data);
+      if (res.ok) { setOrderReady(data); orderReadyRef.current = data; }
       else setPayErr(data.error||"Registration failed. Please try again.");
     } catch(e){setPayErr(e.message);}
-    finally{setPrepping(false);}
+    finally{ setPrepping(false); preppingRef.current = false; }
   };
 
   const loadRazorpay = () => new Promise((resolve,reject) => {
@@ -282,12 +284,12 @@ export default function GeneralSite() {
           data=await new Promise((resolve,reject)=>{
             let t=0;
             const iv=setInterval(()=>{
-              if(orderReady){clearInterval(iv);resolve(orderReady);return;}
-              if(!prepping){clearInterval(iv);reject(new Error("Registration failed."));return;}
-              if(++t>80){clearInterval(iv);reject(new Error("Taking too long."));}
+              if(orderReadyRef.current){clearInterval(iv);resolve(orderReadyRef.current);return;}
+              if(!preppingRef.current){clearInterval(iv);reject(new Error("Registration failed. Please try again."));return;}
+              if(++t>80){clearInterval(iv);reject(new Error("Taking too long. Please try again."));}
             },250);
           });
-        }else{await prepareOrder();data=orderReady;}
+        }else{await prepareOrder();data=orderReadyRef.current;}
       }
       if (!data) throw new Error("Registration failed. Please try again.");
       await loadRazorpay();
