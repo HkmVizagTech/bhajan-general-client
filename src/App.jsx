@@ -353,6 +353,7 @@ export default function GeneralSite() {
             </button>
             <div className="bc-from">Only <b>₹{price}</b></div>
           </div>
+          <UrgencyTag sold={soldCount} capacity={capacity} />
 
         </header>
 
