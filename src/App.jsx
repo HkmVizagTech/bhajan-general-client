@@ -188,6 +188,15 @@ function captureUtm() {
 function getUtm() { try { return JSON.parse(sessionStorage.getItem("bc_utm")||"{}"); } catch { return {}; } }
 function fbqTrack(event, params={}, opts={}) { try { if(window.fbq) window.fbq("track",event,params,opts); } catch {} }
 
+function UrgencyTag({ sold, capacity }) {
+  if (!sold || sold < 10) return null;
+  const pct = sold / capacity;
+  if (pct >= 0.9)  return <div className="bc-urgency hot">🔥 Almost full — limited seats left!</div>;
+  if (pct >= 0.65) return <div className="bc-urgency hot">🔥 Seats filling fast!</div>;
+  if (pct >= 0.35) return <div className="bc-urgency warm">⚡ Filling up — book your seat now</div>;
+  return <div className="bc-urgency mild">🎫 Registrations open — book early</div>;
+}
+
 export default function GeneralSite() {
   const [open,setOpen]         = useState(false);
   const [step,setStep]         = useState("details");
