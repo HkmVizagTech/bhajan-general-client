@@ -92,6 +92,10 @@ const STYLES = `
   justify-content:center;gap:9px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#241200;}
 .bc-stubcta:hover:not(:disabled){filter:brightness(1.04);}
 .bc-stubcta:disabled{opacity:.5;cursor:not-allowed;}
+.bc-closed-box{text-align:center;padding:22px 18px;border-radius:14px;
+  background:rgba(255,177,46,.1);border:1.5px solid rgba(255,177,46,.4);margin-top:8px;}
+.bc-closed-title{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:var(--gold2);margin-bottom:8px;}
+.bc-closed-sub{font-size:14px;color:var(--muted);line-height:1.5;}
 .bc-soldout{position:relative;text-align:center;padding:22px;background:rgba(255,92,122,.08);
   border:1.5px solid rgba(255,92,122,.25);border-radius:12px;color:#FF8A8A;font-weight:600;}
 .bc-bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(18,10,46,.93);
@@ -202,6 +206,7 @@ export default function GeneralSite() {
   const [ref,setRef]           = useState("");
   const [price,setPrice]       = useState(300);
   const [soldOut,setSoldOut]   = useState(false);
+  const [regClosed,setRegClosed] = useState(false);
   const [soldCount,setSoldCount] = useState(0);
   const [capacity,setCapacity] = useState(300);
   const [orderReady,setOrderReady] = useState(null);
@@ -226,11 +231,12 @@ export default function GeneralSite() {
       if (d?.generalSoldOut)  setSoldOut(true);
       if (d?.generalSold!=null) setSoldCount(d.generalSold);
       if (d?.generalCapacity)   setCapacity(d.generalCapacity);
+      if (d && d.registrationOpen === false) setRegClosed(true);
     }).catch(()=>{});
   }, []);
 
   const openModal = () => {
-    if (soldOut) return;
+    if (soldOut || regClosed) return;
     setOpen(true); setStep("details");
     setForm({name:"",phone:""});
     setQty(1);
@@ -353,8 +359,8 @@ export default function GeneralSite() {
             
           </div>
           <div className="bc-herorow">
-            <button className="bc-herocta" onClick={openModal} disabled={soldOut}>
-              {soldOut?"Sold out":<>Book your pass <ArrowRight size={18}/></>}
+            <button className="bc-herocta" onClick={openModal} disabled={soldOut||regClosed}>
+              {regClosed?"Coming soon":soldOut?"Sold out":<>Book your pass <ArrowRight size={18}/></>}
             </button>
             <div className="bc-from">Only <b>₹{price}</b></div>
           </div>
@@ -385,7 +391,12 @@ export default function GeneralSite() {
                 <li><Check size={16}/>QR pass sent on WhatsApp before the event</li>
                 
               </ul>
-              {soldOut
+              {regClosed
+                ?<div className="bc-closed-box">
+                   <div className="bc-closed-title">🙏 Registrations Closed</div>
+                   <div className="bc-closed-sub">We'll announce the next biggest <b>Bhajan Clubbing</b> soon. Stay tuned!</div>
+                 </div>
+                :soldOut
                 ?<div className="bc-soldout">🎟️ All {capacity} passes are sold out. Thank you!</div>
                 :<button className="bc-stubcta" onClick={openModal}>Get General Pass <ArrowRight size={17}/></button>}
             </div>
