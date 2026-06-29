@@ -92,6 +92,10 @@ const STYLES = `
   justify-content:center;gap:9px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#241200;}
 .bc-stubcta:hover:not(:disabled){filter:brightness(1.04);}
 .bc-stubcta:disabled{opacity:.5;cursor:not-allowed;}
+.bc-hero-closed{margin-top:28px;text-align:center;padding:26px 22px;border-radius:16px;
+  background:rgba(255,177,46,.12);border:1.5px solid rgba(255,177,46,.45);max-width:440px;}
+.bc-hero-closed-title{font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;color:var(--gold2);margin-bottom:10px;}
+.bc-hero-closed-sub{font-size:15px;color:var(--muted);line-height:1.55;}
 .bc-closed-box{text-align:center;padding:22px 18px;border-radius:14px;
   background:rgba(255,177,46,.1);border:1.5px solid rgba(255,177,46,.4);margin-top:8px;}
 .bc-closed-title{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:var(--gold2);margin-bottom:8px;}
@@ -358,13 +362,22 @@ export default function GeneralSite() {
             <span className="bc-chip"><UtensilsCrossed size={15}/>Dinner prasadam</span>
             
           </div>
-          <div className="bc-herorow">
-            <button className="bc-herocta" onClick={openModal} disabled={soldOut||regClosed}>
-              {regClosed?"Coming soon":soldOut?"Sold out":<>Book your pass <ArrowRight size={18}/></>}
-            </button>
-            <div className="bc-from">Only <b>₹{price}</b></div>
-          </div>
-          <UrgencyTag sold={soldCount} capacity={capacity} />
+          {regClosed ? (
+            <div className="bc-hero-closed">
+              <div className="bc-hero-closed-title">🙏 Registrations Closed</div>
+              <div className="bc-hero-closed-sub">We'll announce the next biggest <b>Bhajan Clubbing</b> soon. Stay tuned!</div>
+            </div>
+          ) : (
+            <>
+              <div className="bc-herorow">
+                <button className="bc-herocta" onClick={openModal} disabled={soldOut}>
+                  {soldOut?"Sold out":<>Book your pass <ArrowRight size={18}/></>}
+                </button>
+                <div className="bc-from">Only <b>₹{price}</b></div>
+              </div>
+              <UrgencyTag sold={soldCount} capacity={capacity} />
+            </>
+          )}
 
         </header>
 
