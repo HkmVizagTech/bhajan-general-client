@@ -193,11 +193,23 @@ const STYLES = `
 `;
 
 const API = import.meta.env.VITE_API_URL || "";
-const genRef = () => "BC27-" + Math.random().toString(36).slice(2, 7).toUpperCase();
+// ── Single source of truth for event date/time ──────────────────────────────
+// Change these when the event moves; everything below derives from them.
+const EVENT = {
+  dayLabel:   "Sat, 5 Sept",        // chips / bottom bar
+  dayShort:   "5 Sept",             // inline mentions
+  timeLabel:  "6:00 PM",
+  timeShort:  "6 PM",
+  refPrefix:  "BC05",
+  gcalStart:  "20260905T180000",    // IST 6 PM
+  gcalEnd:    "20260905T220000",    // IST 10 PM
+};
+
+const genRef = () => EVENT.refPrefix + "-" + Math.random().toString(36).slice(2, 7).toUpperCase();
 const gcalLink = (ref) =>
   "https://calendar.google.com/calendar/render?action=TEMPLATE" +
   "&text=" + encodeURIComponent("Bhajan Clubbing — KirtanX Music Band") +
-  "&dates=20260627T180000/20260627T220000&ctz=Asia/Kolkata" +
+  "&dates=" + EVENT.gcalStart + "/" + EVENT.gcalEnd + "&ctz=Asia/Kolkata" +
   "&location=" + encodeURIComponent("Vizag Conventions, Visakhapatnam") +
   "&details=" + encodeURIComponent("Music. Mantra. Bliss. Reference: " + ref);
 
@@ -374,7 +386,7 @@ export default function GeneralSite() {
           <div className="bc-band">by KirtanX <span className="by">Music Band</span></div>
           <div className="bc-tag">Music. Mantra. Bliss.</div>
           <div className="bc-meta">
-            <span className="bc-chip"><CalendarDays size={15}/>Sat, 27 June · 6:00 PM</span>
+            <span className="bc-chip"><CalendarDays size={15}/>{EVENT.dayLabel} · {EVENT.timeLabel}</span>
             <span className="bc-chip"><MapPin size={15}/>Vizag Conventions</span>
             <span className="bc-chip"><UtensilsCrossed size={15}/>Dinner prasadam</span>
             
@@ -435,14 +447,14 @@ export default function GeneralSite() {
 
         <footer className="bc-foot">
           <div><span className="bc-foot org">Srila Prabhupada's ISKCON Gambheeram</span> · Visakhapatnam</div>
-          <div>Bhajan Clubbing · 27 June</div>
+          <div>Bhajan Clubbing · {EVENT.dayShort}</div>
         </footer>
       </div>
 
       {!soldOut&&(
         <div className="bc-bar">
           <div className="bc-bar-in">
-            <div className="lbl">Event Pass · 27 June<b>₹{price}</b></div>
+            <div className="lbl">Event Pass · {EVENT.dayShort}<b>₹{price}</b></div>
             <button onClick={openModal}><Sparkles size={17}/>Book now</button>
           </div>
         </div>
@@ -522,7 +534,7 @@ export default function GeneralSite() {
                     </div>
                     <div className="bc-tl-item">
                       <div className="bc-tl-dot"><Music2 size={11}/></div>
-                      <div><b>27 June · 6 PM</b><span>Show your QR at the gate. Dinner prasadam included!</span></div>
+                      <div><b>{EVENT.dayShort} · {EVENT.timeShort}</b><span>Show your QR at the gate. Dinner prasadam included!</span></div>
                     </div>
                   </div>
                   <div className="bc-ref">Reference {ref}</div>
