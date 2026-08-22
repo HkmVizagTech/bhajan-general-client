@@ -310,7 +310,7 @@ export default function GeneralSite() {
       await loadRazorpay();
       const rzp=new window.Razorpay({
         key:data.keyId,order_id:data.orderId,amount:data.amount,currency:data.currency,
-        name:"Bhajan Clubbing",description:"General Pass",
+        name:"Bhajan Clubbing",description:"Event Pass",
         prefill:{name:form.name,contact:"91"+form.phone},
         theme:{color:"#FFB12E"},
         handler:()=>{
@@ -393,8 +393,8 @@ export default function GeneralSite() {
           <div className="bc-ticket-wrap">
             <div className="bc-stub">
               <div className="bc-stub-glow"/>
-              <span className="bc-stub-tag"><Ticket size={13}/>General Pass</span>
-              <div className="bc-stub-name">General Pass</div>
+              <span className="bc-stub-tag"><Ticket size={13}/>Event Pass</span>
+              <div className="bc-stub-name">Event Pass</div>
               <div className="bc-stub-desc">Register, pay, and your QR pass arrives on WhatsApp before the event.</div>
               <div className="bc-tear"/>
               <div className="bc-price"><span className="cur">₹</span><span className="amt">{price}</span><span className="per">/ person</span></div>
@@ -411,7 +411,7 @@ export default function GeneralSite() {
                  </div>
                 :soldOut
                 ?<div className="bc-soldout">🎟️ All {capacity} passes are sold out. Thank you!</div>
-                :<button className="bc-stubcta" onClick={openModal}>Get General Pass <ArrowRight size={17}/></button>}
+                :<button className="bc-stubcta" onClick={openModal}>Get Event Pass <ArrowRight size={17}/></button>}
             </div>
           </div>
         </section>
@@ -425,7 +425,7 @@ export default function GeneralSite() {
       {!soldOut&&(
         <div className="bc-bar">
           <div className="bc-bar-in">
-            <div className="lbl">General Pass · 27 June<b>₹{price}</b></div>
+            <div className="lbl">Event Pass · 27 June<b>₹{price}</b></div>
             <button onClick={openModal}><Sparkles size={17}/>Book now</button>
           </div>
         </div>
@@ -435,7 +435,7 @@ export default function GeneralSite() {
         <div className="bc-overlay" onClick={e=>e.target===e.currentTarget&&closeModal()}>
           <div className="bc-modal" role="dialog" aria-modal="true">
             <div className="bc-mhead">
-              <div className="tt"><span className="pill">General Pass</span><h3>{step==="success"?"All set!":"Register"}</h3></div>
+              <div className="tt"><span className="pill">Event Pass</span><h3>{step==="success"?"All set!":"Register"}</h3></div>
               <button className="bc-close" onClick={closeModal}><X size={18}/></button>
             </div>
             {step!=="success"&&(
@@ -476,7 +476,7 @@ export default function GeneralSite() {
               {step==="payment"&&(
                 <>
                   <div className="bc-summary">
-                    <div className="bc-srow"><span>General Pass × {qty}</span><span className="amt">₹{price * qty}</span></div>
+                    <div className="bc-srow"><span>Event Pass × {qty}</span><span className="amt">₹{price * qty}</span></div>
                     <div className="bc-srow"><span>Name</span><span>{form.name}</span></div>
                     <div className="bc-srow"><span>WhatsApp</span><span>{form.phone}</span></div>
                     <div className="bc-srow tot"><span>Total</span><span className="amt">₹{price * qty}</span></div>
