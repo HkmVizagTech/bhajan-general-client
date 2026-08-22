@@ -9,20 +9,19 @@ const STYLES = `
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
 .bc-root{
-  --bg:#060B24;--bg2:#0A1231;--surface:#10204A;--surface2:#172F63;
-  --line:rgba(95,227,212,.15);--gold:#F0A62A;--gold2:#FFD37A;--amber:#FF7A2F;
-  --yellow:#FFE9A8;--violet:#0FA8A0;--violet2:#5FE3D4;
-  --peacock:#0FA8A0;--peacock2:#5FE3D4;--butter:#FFF2D2;
-  --text:#EFF6FF;--muted:#9DB4D4;--muted2:#63809F;
+  --bg:#120A2E;--bg2:#170E3A;--surface:#1F1450;--surface2:#2A1C66;
+  --line:rgba(190,170,255,.14);--gold:#FFB12E;--gold2:#FFD884;--amber:#FF8A1E;
+  --yellow:#FFE23A;--violet:#9D7BFF;--violet2:#C5AFFF;
+  --text:#F5F2FF;--muted:#B6ABE2;--muted2:#7A6DA8;
   font-family:'Plus Jakarta Sans',system-ui,sans-serif;
   color:var(--text);background:var(--bg);min-height:100vh;
   -webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:84px;
 }
 .bc-root *{box-sizing:border-box;}
 .bc-root::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(900px 560px at 50% -8%,rgba(240,166,42,.18),transparent 60%),
-    radial-gradient(760px 520px at 6% 22%,rgba(15,168,160,.24),transparent 62%),
-    radial-gradient(820px 620px at 95% 34%,rgba(43,90,180,.20),transparent 62%);}
+  background:radial-gradient(900px 560px at 50% -8%,rgba(255,177,46,.16),transparent 60%),
+    radial-gradient(760px 520px at 6% 22%,rgba(110,70,230,.26),transparent 60%),
+    radial-gradient(820px 620px at 95% 34%,rgba(157,123,255,.12),transparent 60%);}
 .bc-wrap{position:relative;z-index:1;max-width:1140px;margin:0 auto;padding:0 22px;}
 .bc-nav{display:flex;align-items:center;justify-content:space-between;padding:20px 0;}
 .bc-brand{display:flex;align-items:center;gap:11px;font-weight:700;}
@@ -35,31 +34,16 @@ const STYLES = `
 .bc-navcta:hover:not(:disabled){transform:translateY(-1px);}
 .bc-navcta:disabled{opacity:.5;cursor:not-allowed;}
 .bc-marquee{position:relative;z-index:1;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  overflow:hidden;background:rgba(240,166,42,.05);padding:9px 0;}
+  overflow:hidden;background:rgba(255,177,46,.05);padding:9px 0;}
 .bc-marquee-track{display:inline-flex;white-space:nowrap;font-family:'Space Mono',monospace;font-size:12.5px;
   letter-spacing:.22em;color:var(--gold2);animation:bc-scroll 22s linear infinite;}
 @keyframes bc-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .bc-hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:54px 0 34px;}
-/* mor pankh — the peacock feather eye Krishna wears in his crown */
-.bc-pankh{position:relative;width:62px;height:78px;margin-bottom:20px;
-  animation:bc-sway 5.5s ease-in-out infinite;transform-origin:50% 100%;}
-.bc-pankh .plume{position:absolute;inset:0;border-radius:50% 50% 48% 48%/62% 62% 38% 38%;
-  background:radial-gradient(ellipse 52% 42% at 50% 40%,
-    #0B2A66 0%,#0B2A66 17%,
-    #F0A62A 18%,#F0A62A 30%,
-    #0FA8A0 31%,#0FA8A0 52%,
-    rgba(15,168,160,.55) 53%,rgba(15,168,160,.12) 76%,transparent 88%);
-  filter:drop-shadow(0 6px 22px rgba(15,168,160,.45));}
-.bc-pankh .quill{position:absolute;left:50%;bottom:-16px;width:1.5px;height:24px;
-  transform:translateX(-50%);
-  background:linear-gradient(180deg,rgba(95,227,212,.7),transparent);}
-@keyframes bc-sway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
-@media(prefers-reduced-motion:reduce){.bc-pankh{animation:none;}}
 .bc-eyebrow{font-family:'Space Mono',monospace;font-size:13px;letter-spacing:.34em;text-transform:uppercase;
   color:var(--yellow);margin-bottom:18px;}
 .bc-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;line-height:.9;
   font-size:clamp(54px,9.5vw,110px);letter-spacing:-.03em;margin:0;text-transform:uppercase;color:#fff;
-  text-shadow:0 0 54px rgba(240,166,42,.45),0 0 120px rgba(15,168,160,.25);}
+  text-shadow:0 0 54px rgba(255,177,46,.4);}
 .bc-band{margin:22px 0 0;font-family:'Bricolage Grotesque';font-weight:700;font-size:22px;}
 .bc-band .by{color:var(--muted);font-weight:500;font-size:15px;font-family:'Plus Jakarta Sans';}
 .bc-tag{color:var(--gold2);font-weight:700;font-size:17px;margin-top:7px;}
@@ -71,7 +55,7 @@ const STYLES = `
 .bc-herocta{display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;
   font-family:'Plus Jakarta Sans';font-weight:700;font-size:16px;color:#241200;padding:17px 32px;
   border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--gold2));
-  box-shadow:0 16px 50px -14px rgba(240,166,42,.75);transition:transform .15s;}
+  box-shadow:0 16px 50px -14px rgba(255,177,46,.75);transition:transform .15s;}
 .bc-herocta:hover:not(:disabled){transform:translateY(-2px);}
 .bc-herocta:disabled{opacity:.5;cursor:not-allowed;}
 .bc-from{font-size:13px;color:var(--muted);}
@@ -83,19 +67,19 @@ const STYLES = `
 .bc-about b{color:var(--text);font-weight:600;}
 .bc-ticket-wrap{display:flex;justify-content:center;margin-top:10px;}
 .bc-stub{position:relative;border-radius:20px;padding:34px;background:var(--surface);
-  border:1.5px solid rgba(240,166,42,.36);overflow:hidden;width:100%;max-width:480px;transition:transform .2s;}
+  border:1.5px solid rgba(255,177,46,.36);overflow:hidden;width:100%;max-width:480px;transition:transform .2s;}
 .bc-stub:hover{transform:translateY(-4px);}
 .bc-stub::before,.bc-stub::after{content:"";position:absolute;width:26px;height:26px;border-radius:50%;
   background:var(--bg);top:50%;transform:translateY(-50%);}
 .bc-stub::before{left:-13px;}.bc-stub::after{right:-13px;}
 .bc-stub-glow{position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(300px 160px at 80% 0%,rgba(240,166,42,.2),transparent 70%);}
+  background:radial-gradient(300px 160px at 80% 0%,rgba(255,177,46,.2),transparent 70%);}
 .bc-stub-tag{position:relative;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;
   letter-spacing:.05em;text-transform:uppercase;padding:6px 11px;border-radius:999px;
-  background:rgba(240,166,42,.15);color:var(--gold2);}
+  background:rgba(255,177,46,.15);color:var(--gold2);}
 .bc-stub-name{position:relative;font-family:'Bricolage Grotesque';font-weight:700;font-size:28px;margin:16px 0 4px;}
 .bc-stub-desc{position:relative;color:var(--muted);font-size:14.5px;line-height:1.6;}
-.bc-tear{position:relative;border-top:1.5px dashed rgba(95,227,212,.22);margin:24px 0;}
+.bc-tear{position:relative;border-top:1.5px dashed rgba(190,170,255,.2);margin:24px 0;}
 .bc-price{position:relative;display:flex;align-items:flex-end;gap:6px;}
 .bc-price .cur{font-size:22px;font-weight:700;color:var(--muted);margin-bottom:7px;}
 .bc-price .amt{font-family:'Bricolage Grotesque';font-weight:800;font-size:58px;line-height:1;color:var(--gold2);}
@@ -109,16 +93,16 @@ const STYLES = `
 .bc-stubcta:hover:not(:disabled){filter:brightness(1.04);}
 .bc-stubcta:disabled{opacity:.5;cursor:not-allowed;}
 .bc-hero-closed{margin-top:28px;text-align:center;padding:26px 22px;border-radius:16px;
-  background:rgba(240,166,42,.12);border:1.5px solid rgba(240,166,42,.45);max-width:440px;}
+  background:rgba(255,177,46,.12);border:1.5px solid rgba(255,177,46,.45);max-width:440px;}
 .bc-hero-closed-title{font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;color:var(--gold2);margin-bottom:10px;}
 .bc-hero-closed-sub{font-size:15px;color:var(--muted);line-height:1.55;}
 .bc-closed-box{text-align:center;padding:22px 18px;border-radius:14px;
-  background:rgba(240,166,42,.1);border:1.5px solid rgba(240,166,42,.4);margin-top:8px;}
+  background:rgba(255,177,46,.1);border:1.5px solid rgba(255,177,46,.4);margin-top:8px;}
 .bc-closed-title{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:var(--gold2);margin-bottom:8px;}
 .bc-closed-sub{font-size:14px;color:var(--muted);line-height:1.5;}
 .bc-soldout{position:relative;text-align:center;padding:22px;background:rgba(255,92,122,.08);
   border:1.5px solid rgba(255,92,122,.25);border-radius:12px;color:#FF8A8A;font-weight:600;}
-.bc-bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(6,11,36,.93);
+.bc-bar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(18,10,46,.93);
   backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:14px 22px;}
 .bc-bar-in{max-width:1140px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;}
 .bc-bar .lbl{font-size:12px;color:var(--muted);}
@@ -126,7 +110,7 @@ const STYLES = `
 .bc-bar button{cursor:pointer;border:none;font-family:'Plus Jakarta Sans';font-weight:700;font-size:15px;
   color:#241200;background:linear-gradient(135deg,var(--gold),var(--gold2));padding:14px 28px;border-radius:12px;
   display:flex;align-items:center;gap:8px;}
-.bc-overlay{position:fixed;inset:0;z-index:60;background:rgba(4,8,26,.78);backdrop-filter:blur(8px);
+.bc-overlay{position:fixed;inset:0;z-index:60;background:rgba(10,5,28,.76);backdrop-filter:blur(8px);
   display:flex;align-items:flex-start;justify-content:center;padding:34px 18px;overflow-y:auto;}
 .bc-modal{width:100%;max-width:520px;background:var(--bg2);border:1px solid var(--line);
   border-radius:22px;overflow:hidden;box-shadow:0 40px 100px -30px rgba(0,0,0,.85);}
@@ -134,13 +118,13 @@ const STYLES = `
   border-bottom:1px solid var(--line);background:var(--surface);}
 .bc-mhead .tt{display:flex;align-items:center;gap:11px;}
 .bc-mhead .pill{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
-  padding:5px 10px;border-radius:999px;background:rgba(240,166,42,.16);color:var(--gold2);}
+  padding:5px 10px;border-radius:999px;background:rgba(255,177,46,.16);color:var(--gold2);}
 .bc-mhead h3{margin:0;font-family:'Bricolage Grotesque';font-weight:700;font-size:19px;}
 .bc-close{cursor:pointer;background:var(--surface2);border:none;color:var(--muted);
   width:34px;height:34px;border-radius:10px;display:grid;place-items:center;}
 .bc-steps{display:flex;gap:8px;padding:18px 26px 0;}
 .bc-steps .s{flex:1;height:4px;border-radius:999px;background:var(--surface2);}
-.bc-steps .s.on{background:linear-gradient(90deg,var(--gold),var(--peacock2));}
+.bc-steps .s.on{background:linear-gradient(90deg,var(--gold),var(--violet));}
 .bc-mbody{padding:22px 26px 28px;}
 .bc-field{margin-bottom:15px;}
 .bc-field label{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-bottom:7px;}
@@ -160,7 +144,7 @@ const STYLES = `
 .bc-btn.ghost{background:var(--surface2);color:var(--text);}
 .bc-summary{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px;}
 .bc-srow{display:flex;justify-content:space-between;align-items:center;font-size:14px;padding:7px 0;color:var(--muted);}
-.bc-srow.tot{border-top:1px dashed rgba(95,227,212,.20);margin-top:6px;padding-top:13px;
+.bc-srow.tot{border-top:1px dashed rgba(190,170,255,.18);margin-top:6px;padding-top:13px;
   color:var(--text);font-weight:700;font-size:17px;}
 .bc-srow .amt{font-family:'Space Mono',monospace;}
 .bc-secure{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:12px;color:var(--muted2);}
@@ -168,7 +152,7 @@ const STYLES = `
   border-radius:10px;padding:10px 13px;font-size:13px;margin-bottom:14px;text-align:center;}
 .bc-success{text-align:center;padding:8px 4px 4px;}
 .bc-succ-ic{width:74px;height:74px;border-radius:50%;display:grid;place-items:center;margin:6px auto 18px;
-  background:rgba(240,166,42,.15);color:var(--gold2);}
+  background:rgba(255,177,46,.15);color:var(--gold2);}
 @keyframes bc-pop{from{transform:scale(.3);opacity:0;}to{transform:scale(1);opacity:1;}}
 .bc-success h3{font-family:'Bricolage Grotesque';font-weight:700;font-size:23px;margin:0 0 6px;}
 .bc-succ-sub{color:var(--muted);font-size:14.5px;margin:0 0 20px;}
@@ -176,11 +160,11 @@ const STYLES = `
 .bc-timeline{text-align:left;margin:6px 0 16px;display:grid;gap:0;}
 .bc-tl-item{display:flex;gap:13px;position:relative;padding-bottom:18px;}
 .bc-tl-item:last-child{padding-bottom:4px;}
-.bc-tl-item::before{content:"";position:absolute;left:11px;top:24px;bottom:-2px;width:1.5px;background:rgba(95,227,212,.18);}
+.bc-tl-item::before{content:"";position:absolute;left:11px;top:24px;bottom:-2px;width:1.5px;background:rgba(190,170,255,.16);}
 .bc-tl-item:last-child::before{display:none;}
 .bc-tl-dot{width:23px;height:23px;border-radius:50%;flex:none;display:grid;place-items:center;
   background:var(--surface2);color:var(--muted2);border:1px solid var(--line);z-index:1;}
-.bc-tl-item.done .bc-tl-dot{background:rgba(240,166,42,.2);color:var(--gold2);border-color:rgba(240,166,42,.4);}
+.bc-tl-item.done .bc-tl-dot{background:rgba(255,177,46,.2);color:var(--gold2);border-color:rgba(255,177,46,.4);}
 .bc-tl-item b{display:block;font-size:13.5px;font-weight:600;}
 .bc-tl-item span{display:block;font-size:12px;color:var(--muted2);margin-top:1px;line-height:1.5;}
 .bc-tl-item.done b{color:var(--gold2);}
@@ -193,23 +177,11 @@ const STYLES = `
 `;
 
 const API = import.meta.env.VITE_API_URL || "";
-// ── Single source of truth for event date/time ──────────────────────────────
-// Change these when the event moves; everything below derives from them.
-const EVENT = {
-  dayLabel:   "Sat, 5 Sept",        // chips / bottom bar
-  dayShort:   "5 Sept",             // inline mentions
-  timeLabel:  "6:00 PM",
-  timeShort:  "6 PM",
-  refPrefix:  "BC05",
-  gcalStart:  "20260905T180000",    // IST 6 PM
-  gcalEnd:    "20260905T220000",    // IST 10 PM
-};
-
-const genRef = () => EVENT.refPrefix + "-" + Math.random().toString(36).slice(2, 7).toUpperCase();
+const genRef = () => "BC27-" + Math.random().toString(36).slice(2, 7).toUpperCase();
 const gcalLink = (ref) =>
   "https://calendar.google.com/calendar/render?action=TEMPLATE" +
   "&text=" + encodeURIComponent("Bhajan Clubbing — KirtanX Music Band") +
-  "&dates=" + EVENT.gcalStart + "/" + EVENT.gcalEnd + "&ctz=Asia/Kolkata" +
+  "&dates=20260627T180000/20260627T220000&ctz=Asia/Kolkata" +
   "&location=" + encodeURIComponent("Vizag Conventions, Visakhapatnam") +
   "&details=" + encodeURIComponent("Music. Mantra. Bliss. Reference: " + ref);
 
@@ -355,7 +327,7 @@ export default function GeneralSite() {
 
   const capPct=Math.min(100,Math.round((soldCount/capacity)*100));
   const remaining=capacity-soldCount;
-  const marquee="HARE KRISHNA HARE KRISHNA · KRISHNA KRISHNA HARE HARE · HARE RAMA HARE RAMA · RAMA RAMA HARE HARE · ";
+  const marquee="KIRTANX · MUSIC · MANTRA · BLISS · HARE KRISHNA · BHAJAN CLUBBING · ";
 
   return (
     <div className="bc-root">
@@ -380,13 +352,12 @@ export default function GeneralSite() {
 
       <div className="bc-wrap">
         <header className="bc-hero">
-          <div className="bc-pankh" aria-hidden="true"><div className="plume"/><div className="quill"/></div>
           <div className="bc-eyebrow">Vizag's Biggest</div>
           <h1 className="bc-title">Bhajan<br/>Clubbing</h1>
           <div className="bc-band">by KirtanX <span className="by">Music Band</span></div>
           <div className="bc-tag">Music. Mantra. Bliss.</div>
           <div className="bc-meta">
-            <span className="bc-chip"><CalendarDays size={15}/>{EVENT.dayLabel} · {EVENT.timeLabel}</span>
+            <span className="bc-chip"><CalendarDays size={15}/>Sat, 27 June · 6:00 PM</span>
             <span className="bc-chip"><MapPin size={15}/>Vizag Conventions</span>
             <span className="bc-chip"><UtensilsCrossed size={15}/>Dinner prasadam</span>
             
@@ -447,14 +418,14 @@ export default function GeneralSite() {
 
         <footer className="bc-foot">
           <div><span className="bc-foot org">Srila Prabhupada's ISKCON Gambheeram</span> · Visakhapatnam</div>
-          <div>Bhajan Clubbing · {EVENT.dayShort}</div>
+          <div>Bhajan Clubbing · 27 June</div>
         </footer>
       </div>
 
       {!soldOut&&(
         <div className="bc-bar">
           <div className="bc-bar-in">
-            <div className="lbl">Event Pass · {EVENT.dayShort}<b>₹{price}</b></div>
+            <div className="lbl">Event Pass · 27 June<b>₹{price}</b></div>
             <button onClick={openModal}><Sparkles size={17}/>Book now</button>
           </div>
         </div>
@@ -534,7 +505,7 @@ export default function GeneralSite() {
                     </div>
                     <div className="bc-tl-item">
                       <div className="bc-tl-dot"><Music2 size={11}/></div>
-                      <div><b>{EVENT.dayShort} · {EVENT.timeShort}</b><span>Show your QR at the gate. Dinner prasadam included!</span></div>
+                      <div><b>27 June · 6 PM</b><span>Show your QR at the gate. Dinner prasadam included!</span></div>
                     </div>
                   </div>
                   <div className="bc-ref">Reference {ref}</div>
